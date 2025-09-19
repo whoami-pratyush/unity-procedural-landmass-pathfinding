@@ -9,7 +9,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] int seed;
     [SerializeField] float lacunarity;
     [Range(0, 1)]
-    [SerializeField] float persistance;
+    [SerializeField] float persistense;
     [SerializeField] Vector2 offset;
     [SerializeField] int octaves;
     [Header("Config")]
@@ -18,7 +18,7 @@ public class MapGenerator : MonoBehaviour
 
     public void GenerateMap()
     {
-        float[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, scale, octaves, seed, lacunarity, persistance, offset);
+        float[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, scale, octaves, seed, lacunarity, persistense, offset);
         display.DrawNoiseMap(noiseMap);
     }
 

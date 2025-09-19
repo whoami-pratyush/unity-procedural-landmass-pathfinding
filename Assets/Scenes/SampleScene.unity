@@ -484,7 +484,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0}
-  m_LocalScale: {x: 100, y: 1, z: 100}
+  m_LocalScale: {x: 140, y: 1, z: 133}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -513,9 +513,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc831a5cbc43f31489d637abead46014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 0
-  width: 0
+  mapHeight: 1
+  mapWidth: 1
   scale: 0
+  seed: 0
+  lacunarity: 1
+  persistance: 0
+  offset: {x: 0, y: 0}
+  octaves: 0
   display: {fileID: 0}
   autoUpdate: 0
 --- !u!114 &524970167
@@ -590,7 +595,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2117139730}
   - component: {fileID: 2117139729}
-  - component: {fileID: 2117139728}
+  - component: {fileID: 2117139731}
   m_Layer: 0
   m_Name: MapDisplay
   m_TagString: Untagged
@@ -598,23 +603,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2117139728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2117139727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc831a5cbc43f31489d637abead46014, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  height: 100
-  width: 100
-  scale: -5.02
-  display: {fileID: 2117139729}
-  autoUpdate: 1
 --- !u!114 &2117139729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,6 +631,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2117139731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117139727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc831a5cbc43f31489d637abead46014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapHeight: 133
+  mapWidth: 140
+  scale: 25.16
+  seed: 153
+  lacunarity: 2.7
+  persistance: 0.23
+  offset: {x: 49.8, y: 23}
+  octaves: 5
+  display: {fileID: 2117139729}
+  autoUpdate: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
