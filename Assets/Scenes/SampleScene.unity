@@ -513,16 +513,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc831a5cbc43f31489d637abead46014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drawMode: 0
   mapHeight: 1
   mapWidth: 1
   scale: 0
   seed: 0
   lacunarity: 1
-  persistance: 0
+  persistense: 0
   offset: {x: 0, y: 0}
   octaves: 0
   display: {fileID: 0}
   autoUpdate: 0
+  regions: []
 --- !u!114 &524970167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,16 +645,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc831a5cbc43f31489d637abead46014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drawMode: 1
   mapHeight: 133
   mapWidth: 140
-  scale: 25.16
+  scale: 27.6
   seed: 153
-  lacunarity: 2.7
-  persistance: 0.23
-  offset: {x: 49.8, y: 23}
-  octaves: 5
+  lacunarity: 4.02
+  persistense: 0.185
+  offset: {x: 55, y: 20.2}
+  octaves: 4
   display: {fileID: 2117139729}
   autoUpdate: 1
+  regions:
+  - name: water
+    height: 0.4
+    color: {r: 0.30860624, g: 0.45933622, b: 0.6886792, a: 0}
+  - name: land
+    height: 1
+    color: {r: 0.3156794, g: 0.5754717, b: 0.26873443, a: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

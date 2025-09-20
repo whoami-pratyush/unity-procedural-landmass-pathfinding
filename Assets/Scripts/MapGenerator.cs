@@ -2,24 +2,41 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
+    public enum DrawMode
+    {
+        NoiseMap,
+        ColorMap
+    };
+
+    [SerializeField] private DrawMode drawMode;
+
     [Header("Noise Inputs")]
-    [SerializeField] int mapHeight;
-    [SerializeField] int mapWidth;
-    [SerializeField] float scale;
-    [SerializeField] int seed;
-    [SerializeField] float lacunarity;
+    [SerializeField] private int mapHeight;
+    [SerializeField] private int mapWidth;
+    [SerializeField] private float scale;
+    [SerializeField] private int seed;
+    [SerializeField] private float lacunarity;
     [Range(0, 1)]
-    [SerializeField] float persistense;
-    [SerializeField] Vector2 offset;
-    [SerializeField] int octaves;
+    [SerializeField] private float persistense;
+    [SerializeField] private Vector2 offset;
+    [SerializeField] private int octaves;
     [Header("Config")]
-    [SerializeField] MapDisplay display;
+    [SerializeField] private MapDisplay display;
     [SerializeField] public bool autoUpdate;
+    [Header("Terrain Modification")]
+    [SerializeField] private TerrainType[] regions;
 
     public void GenerateMap()
     {
         float[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, scale, octaves, seed, lacunarity, persistense, offset);
-        display.DrawNoiseMap(noiseMap);
+        if (drawMode == DrawMode.NoiseMap)
+        {
+            display.DrawTexture(TextureGenerator.GenerateGrayScaleMap(noiseMap));
+        }
+        else if (drawMode == DrawMode.ColorMap)
+        {
+            display.DrawTexture(TextureGenerator.GenerateColorMap(noiseMap, regions));
+        }
     }
 
     void OnValidate()
