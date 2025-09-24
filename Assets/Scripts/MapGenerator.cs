@@ -5,7 +5,8 @@ public class MapGenerator : MonoBehaviour
     public enum DrawMode
     {
         NoiseMap,
-        ColorMap
+        ColorMap,
+        Mesh
     };
 
     [SerializeField] private DrawMode drawMode;
@@ -24,6 +25,8 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private MapDisplay display;
     [SerializeField] public bool autoUpdate;
     [Header("Terrain Modification")]
+    [SerializeField] AnimationCurve curve;
+    [SerializeField] private float heightMult;
     [SerializeField] private TerrainType[] regions;
 
     public void GenerateMap()
@@ -36,6 +39,10 @@ public class MapGenerator : MonoBehaviour
         else if (drawMode == DrawMode.ColorMap)
         {
             display.DrawTexture(TextureGenerator.GenerateColorMap(noiseMap, regions));
+        }
+        else if (drawMode == DrawMode.Mesh)
+        {
+            display.DrawMesh(MeshGenerator.GenerateMeshData(noiseMap, curve, heightMult), TextureGenerator.GenerateColorMap(noiseMap, regions));
         }
     }
 
