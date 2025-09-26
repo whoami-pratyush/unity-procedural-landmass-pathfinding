@@ -7,7 +7,7 @@ public class Grid : MonoBehaviour
     public int gridX;
     public int gridY;
 
-    public void CreateGrid(float[,] noiseMap, AnimationCurve curve, float _heightmult, TerrainType[] region)
+    public void CreateGrid(float[,] noiseMap, AnimationCurve curve, float _heightmult, TerrainType[] region, float gridScale)
     {
         gridX = noiseMap.GetLength(0);
         gridY = noiseMap.GetLength(1);
@@ -22,7 +22,7 @@ public class Grid : MonoBehaviour
             for (int x = 0; x < gridX; x++)
             {
                 grid[x, y] = new Node();
-                grid[x, y].pos = new Vector3(topLeftX + x, curve.Evaluate(noiseMap[x, y]) * _heightmult, topLeftY - y);
+                grid[x, y].pos = new Vector3((topLeftX + x) * gridScale, curve.Evaluate(noiseMap[x, y]) * _heightmult, (topLeftY - y) * gridScale);
 
             }
         }

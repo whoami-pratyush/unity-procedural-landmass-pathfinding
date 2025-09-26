@@ -49,7 +49,7 @@ public class MapGenerator : MonoBehaviour
             display.DrawMesh(MeshGenerator.GenerateMeshData(noiseMap, curve, heightMult), TextureGenerator.GenerateColorMap(noiseMap, regions));
         }
 
-        grid.CreateGrid(noiseMap, curve, heightMult, regions);
+        grid.CreateGrid(noiseMap, curve, heightMult, regions, gridScale);
 
 
 
@@ -62,7 +62,7 @@ public class MapGenerator : MonoBehaviour
         foreach (Node n in grid.grid)
         {
             Gizmos.color = (n.walkable) ? Color.white : Color.red;
-            Gizmos.DrawCube(new Vector3(n.pos.x * gridScale, n.pos.y, n.pos.z * gridScale), Vector3.one * gridScale); // 0.9f so cubes don't overlap
+            Gizmos.DrawCube(new Vector3(n.pos.x, n.pos.y, n.pos.z), Vector3.one * gridScale); // 0.9f so cubes don't overlap
         }
     }
 
