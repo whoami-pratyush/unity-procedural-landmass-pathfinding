@@ -61,6 +61,7 @@ public class Grid : MonoBehaviour
                 {
                     if (currentHeight <= region[i].height)
                     {
+                        _nodeGrid[x,y].setMovePenalty( region[i].buildingCost);
                         _nodeGrid[x, y].walkable = (region[i].buildingCost < 9999);
                         break;
                     }

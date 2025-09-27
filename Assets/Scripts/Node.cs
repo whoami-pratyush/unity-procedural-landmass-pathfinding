@@ -7,6 +7,7 @@ public class Node
     public int gridX;
     public int gridY;
 
+    public int movementPenalty;
     public int gCost;
     public int hCost;
     public Node parent;
@@ -19,6 +20,16 @@ public class Node
         gridY = y;
         walkable = true; // default to walkable
     }
+
+    public int getMovePenalty()
+    {
+        return movementPenalty;
+    }
+    public void setMovePenalty(int buildingCost)
+    {
+        movementPenalty = buildingCost;
+    }
+
     public int fCost
     {
         get
