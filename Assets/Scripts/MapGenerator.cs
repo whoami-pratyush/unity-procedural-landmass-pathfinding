@@ -28,6 +28,10 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] AnimationCurve curve;
     [SerializeField] private float heightMult;
     [SerializeField] private TerrainType[] regions;
+    [SerializeField] private Grid grid = new Grid();
+    [SerializeField] float gridScale;
+
+
 
     public void GenerateMap()
     {
@@ -43,6 +47,22 @@ public class MapGenerator : MonoBehaviour
         else if (drawMode == DrawMode.Mesh)
         {
             display.DrawMesh(MeshGenerator.GenerateMeshData(noiseMap, curve, heightMult), TextureGenerator.GenerateColorMap(noiseMap, regions));
+        }
+
+        grid.CreateGrid(noiseMap, curve, heightMult, regions, gridScale);
+
+
+
+    }
+
+    void OnDrawGizmos()
+    {
+        if (grid == null || grid.grid == null) return;
+
+        foreach (Node n in grid.grid)
+        {
+            Gizmos.color = (n.walkable) ? Color.white : Color.red;
+            Gizmos.DrawCube(new Vector3(n.pos.x, n.pos.y, n.pos.z), Vector3.one * gridScale); // 0.9f so cubes don't overlap
         }
     }
 
