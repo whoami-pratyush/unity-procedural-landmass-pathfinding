@@ -11,6 +11,8 @@ public class MapGenerator : MonoBehaviour
 
     [SerializeField] private DrawMode drawMode;
     [SerializeField] public Transform Flag1;
+    [SerializeField] public Transform Flag2;
+    [SerializeField] public PathFinding pathFinder;
 
     [Header("Noise Inputs")]
 
@@ -32,7 +34,9 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private TerrainType[] regions;
     [SerializeField] private Grid grid;
     [SerializeField] float gridScale;
-    private Node Flagpos;
+    private Node startPos;
+    private Node endPos;
+
 
 
 
@@ -54,11 +58,17 @@ public class MapGenerator : MonoBehaviour
 
         grid.CreateGrid(noiseMap, curve, heightMult, regions);
 
-        Flagpos = grid.NodeFromWorldPoint(Flag1.position);
+        startPos = grid.NodeFromWorldPoint(Flag1.position);
+        endPos = grid.NodeFromWorldPoint(Flag2.position);
 
-        Debug.Log(Flagpos._worldPos);
+        if(startPos != null && endPos != null)
+        {
+            pathFinder.FindPath(startPos, endPos, grid);
+        }
 
     }
+
+
 
     void OnDrawGizmos()
     {
@@ -69,10 +79,14 @@ public class MapGenerator : MonoBehaviour
             Gizmos.color = (n.walkable) ? Color.white : Color.red;
             // 0.9f so cubes don't overlap
 
-            if (Flagpos == n)
+            if(grid.path != null)
             {
-                Gizmos.color = Color.cyan;
+                if (grid.path.Contains(n))
+                {
+                    Gizmos.color = Color.black;
+                }
             }
+            
             Gizmos.DrawCube(new Vector3(n._worldPos.x, n._worldPos.y, n._worldPos.z), Vector3.one * 5f);
         }
 

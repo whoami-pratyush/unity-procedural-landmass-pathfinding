@@ -1,5 +1,6 @@
-using UnityEngine;
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class Grid : MonoBehaviour
     public float nodeDiameter;
     public MeshFilter _meshFilter;
     public Mesh _mesh;
+    public List<Node> path;
 
     // Add these variables to store the grid bounds
     private float topLeftX;
@@ -65,6 +67,30 @@ public class Grid : MonoBehaviour
                 }
             }
         }
+    }
+
+    public List<Node> GetNeighbours(Node node)
+    {
+        List<Node> neighbours = new List<Node>();
+
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int y = -1; y <= 1; y++)
+            {
+                if (x == 0 && y == 0)
+                    continue;
+
+                int checkX = node.gridX + x;
+                int checkY = node.gridY + y;
+
+                if (checkX >= 0 && checkX < gridX && checkY >= 0 && checkY < gridY)
+                {
+                    neighbours.Add(_nodeGrid[checkX, checkY]);
+                }
+            }
+        }
+
+        return neighbours;
     }
 
     public Node NodeFromWorldPoint(Vector3 worldPosition)
