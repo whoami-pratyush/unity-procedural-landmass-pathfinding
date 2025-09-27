@@ -10,8 +10,10 @@ public class MapGenerator : MonoBehaviour
     };
 
     [SerializeField] private DrawMode drawMode;
+    [SerializeField] public Transform Flag1;
 
     [Header("Noise Inputs")]
+
     [SerializeField] private int mapHeight;
     [SerializeField] private int mapWidth;
     [SerializeField] private float scale;
@@ -28,8 +30,9 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] AnimationCurve curve;
     [SerializeField] private float heightMult;
     [SerializeField] private TerrainType[] regions;
-    [SerializeField] private Grid grid = new Grid();
+    [SerializeField] private Grid grid;
     [SerializeField] float gridScale;
+    private Node Flagpos;
 
 
 
@@ -49,21 +52,32 @@ public class MapGenerator : MonoBehaviour
             display.DrawMesh(MeshGenerator.GenerateMeshData(noiseMap, curve, heightMult), TextureGenerator.GenerateColorMap(noiseMap, regions));
         }
 
-        grid.CreateGrid(noiseMap, curve, heightMult, regions, gridScale);
+        grid.CreateGrid(noiseMap, curve, heightMult, regions);
 
+        Flagpos = grid.NodeFromWorldPoint(Flag1.position);
 
+        Debug.Log(Flagpos._worldPos);
 
     }
 
     void OnDrawGizmos()
     {
-        if (grid == null || grid.grid == null) return;
+        if (grid == null || grid._nodeGrid == null) return;
 
-        foreach (Node n in grid.grid)
+        foreach (Node n in grid._nodeGrid)
         {
             Gizmos.color = (n.walkable) ? Color.white : Color.red;
-            Gizmos.DrawCube(new Vector3(n.pos.x, n.pos.y, n.pos.z), Vector3.one * gridScale); // 0.9f so cubes don't overlap
+            // 0.9f so cubes don't overlap
+
+            if (Flagpos == n)
+            {
+                Gizmos.color = Color.cyan;
+            }
+            Gizmos.DrawCube(new Vector3(n._worldPos.x, n._worldPos.y, n._worldPos.z), Vector3.one * 5f);
         }
+
+
+
     }
 
     void OnValidate()

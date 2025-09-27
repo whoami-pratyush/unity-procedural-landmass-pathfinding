@@ -3,27 +3,50 @@ using System;
 
 public class Grid : MonoBehaviour
 {
-    public Node[,] grid;
+    public Transform Flag1;
+    public Node[,] _nodeGrid;
+    public Vector3 gridWorldSize;
+    public float nodeRadius = 0.5f;
     public int gridX;
     public int gridY;
+    public float nodeDiameter;
+    public MeshFilter _meshFilter;
+    public Mesh _mesh;
 
-    public void CreateGrid(float[,] noiseMap, AnimationCurve curve, float _heightmult, TerrainType[] region, float gridScale)
+    // Add these variables to store the grid bounds
+    private float topLeftX;
+    private float topLeftZ;
+    private float bottomRightX;
+    private float bottomRightZ;
+
+    public void CreateGrid(float[,] noiseMap, AnimationCurve curve, float _heightmult, TerrainType[] region)
     {
+        nodeDiameter = 2 * nodeRadius;
+
+        // Get grid dimensions from noise map, not from mesh
         gridX = noiseMap.GetLength(0);
         gridY = noiseMap.GetLength(1);
 
-        float topLeftX = (gridX - 1) / -2f;
-        float topLeftY = (gridY - 1) / 2f;
+        // Calculate the actual world bounds of your grid
+        topLeftX = (gridX - 1) / -2f * 10f; // Match your *10 scaling
+        topLeftZ = (gridY - 1) / 2f * 10f;
+        bottomRightX = -topLeftX;
+        bottomRightZ = -topLeftZ;
 
-        grid = new Node[gridX, gridY];
+        gridWorldSize.x = Mathf.Abs(bottomRightX - topLeftX);
+        gridWorldSize.z = Mathf.Abs(bottomRightZ - topLeftZ);
+
+        _nodeGrid = new Node[gridX, gridY];
 
         for (int y = 0; y < gridY; y++)
         {
             for (int x = 0; x < gridX; x++)
             {
-                grid[x, y] = new Node();
-                grid[x, y].pos = new Vector3((topLeftX + x) * gridScale, curve.Evaluate(noiseMap[x, y]) * _heightmult, (topLeftY - y) * gridScale);
+                Vector3 worldPos = new Vector3((topLeftX / 10f + x) * 10f,
+                                              curve.Evaluate(noiseMap[x, y]) * _heightmult,
+                                              (topLeftZ / 10f - y) * 10f);
 
+                _nodeGrid[x, y] = new Node(worldPos, x, y);
             }
         }
 
@@ -36,19 +59,32 @@ public class Grid : MonoBehaviour
                 {
                     if (currentHeight <= region[i].height)
                     {
-                        if (region[i].buildingCost < 9999)
-                        {
-                            grid[x, y].walkable = true;
-                        }
-                        else
-                        {
-                            grid[x, y].walkable = false;
-                        }
+                        _nodeGrid[x, y].walkable = (region[i].buildingCost < 9999);
                         break;
                     }
                 }
             }
         }
+    }
 
+    public Node NodeFromWorldPoint(Vector3 worldPosition)
+    {
+        if (_nodeGrid == null) return null;
+
+        // Convert world position to grid coordinates
+        float percentX = (worldPosition.x - topLeftX) / gridWorldSize.x;
+        float percentZ = (topLeftZ - worldPosition.z) / gridWorldSize.z;
+
+        percentX = Mathf.Clamp01(percentX);
+        percentZ = Mathf.Clamp01(percentZ);
+
+        int x = Mathf.RoundToInt(percentX * (gridX - 1));
+        int z = Mathf.RoundToInt(percentZ * (gridY - 1));
+
+        // Ensure we don't go out of bounds
+        x = Mathf.Clamp(x, 0, gridX - 1);
+        z = Mathf.Clamp(z, 0, gridY - 1);
+
+        return _nodeGrid[x, z];
     }
 }
