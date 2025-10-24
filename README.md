@@ -66,7 +66,7 @@ This project is a combination of two core systems:
    git clone [https://github.com/whoami-pratyush/unity-procedural-landmass-pathfinding.git]
    ```
 
-2. Open in **Unity (2021.3+ recommended)**
+2. Open in **Unity (6000.0.059f2 and above recommended)**
 
 3. In the **Inspector** for the `MapGenerator` object:
 
