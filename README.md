@@ -93,16 +93,6 @@ Huge thanks to Sebastian Lague for his exceptional educational content — this 
 
 This project is released under the **MIT License**, following the license terms of the original repositories by Sebastian Lague.
 
-```
-MIT License
-
-Copyright (c) 2025 <Pratyush Soni>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction...
-```
-
 ---
 
 ## 📘 Author
