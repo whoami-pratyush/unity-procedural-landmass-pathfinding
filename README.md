@@ -74,7 +74,7 @@ This project is a combination of two core systems:
    * Choose draw mode: **NoiseMap**, **ColorMap**, or **Mesh**
    * Enable **Auto Update** for real-time updates
 
-4. Press **Generate** and use mouse clicks to select start and end points for pathfinding.
+4. Press **Generate** and use mouse to select Flags game object to set start and end points for pathfinding.
 
 ---
 
