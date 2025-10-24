@@ -85,7 +85,7 @@ This project was **inspired by and built upon** concepts taught by [Sebastian La
 * [Procedural Landmass Generation](https://github.com/SebLague/Procedural-Landmass-Generation)
 * [A* Pathfinding Project](https://github.com/SebLague/Pathfinding)
 
-Huge thanks to Sebastian Lague for his exceptional educational content — this project extends those tutorials by combining both systems and adding personalized features for academic and demonstration purposes.
+Huge thanks to Sebastian Lague for his exceptional educational content this project extends those tutorials by combining both systems and adding personalized features for academic and demonstration purposes.
 
 ---
 
